@@ -16,7 +16,7 @@ def setup():
     opt.nThreads = 1
     opt.batchSize = 1
     opt.serial_batches = True
-    opt.no_flip = True 
+    opt.no_flip = True
     opt.name = 'pretrained'
     opt.checkpoints_dir = '.'
     opt.model = 'pix2pix'
@@ -30,7 +30,7 @@ def setup():
     return model
 
 
-@photosketch.command('convert', inputs={'image': 'image'}, outputs={'converted': 'image'})
+@photosketch.command('convert', inputs={'image': 'image'}, outputs={'output': 'image'})
 def convert(model, inp):
     img = np.array(inp['image'])
     img = img / 255.
@@ -44,7 +44,7 @@ def convert(model, inp):
     output = util.tensor2im(model.fake_B)
     output = Image.fromarray(output.astype('uint8'))
     output = output.convert('RGB')
-    return dict(converted=output)
+    return dict(output=output)
 
 
 if __name__ == '__main__':
